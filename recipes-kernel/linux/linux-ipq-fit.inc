@@ -11,6 +11,7 @@ INSANE_SKIP_kernel-dev = "debug-files"
 
 PARALLEL_MAKE = ""
 KARCH ?= "arm"
+DEPENDS += "u-boot-mkimage-native"
 
 mk_fit_images() {
 	name=$1

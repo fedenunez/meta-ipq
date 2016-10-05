@@ -8,4 +8,5 @@ IMAGE_INSTALL += " \
 	kernel-modules \
 	${IPQ_BASE_PKGS} \
 	${SSDK_PKGS} \
+	qca-edma \
 	"

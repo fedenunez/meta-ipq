@@ -2,7 +2,7 @@
 
 IMAGE_FEATURES += "package-management"
 
-IPQ_BASE_PKGS = "strace dropbear e2fsprogs kexec-tools libnl libical uci"
+IPQ_BASE_PKGS = "strace dropbear e2fsprogs kexec-tools libnl uci"
 
 NETWORK_PKGS = "ethtool iproute2 iptables iputils dhcp-server wireless-tools"
 

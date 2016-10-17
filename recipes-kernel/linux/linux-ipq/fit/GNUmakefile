@@ -63,6 +63,10 @@ all: clean linux.fit fdt.fit
 linux.fit: Image.gz linux.its
 	mkimage -f linux.its $@
 
+multi.fit: Image.gz
+	mkimage -f multi.its $@
+	rm -f multi.its
+
 fdt.fit: fdt.its
 	@$(ASSERT_DTB)
 	cp $(DTB) linux.dtb

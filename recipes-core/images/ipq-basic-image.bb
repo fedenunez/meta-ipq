@@ -7,4 +7,5 @@ include recipes-core/images/ipq-pkgs.inc
 IMAGE_INSTALL += " \
 	kernel-modules \
 	${IPQ_BASE_PKGS} \
+	${SSDK_PKGS} \
 	"

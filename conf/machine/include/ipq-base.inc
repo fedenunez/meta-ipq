@@ -4,6 +4,7 @@ include conf/machine/include/soc-family.inc
 include conf/machine/include/tune-cortexa7.inc
 
 IMAGE_FSTYPES = "squashfs squashfs-xz ext4"
+SYSVINIT_ENABLED_GETTYS = ""
 
 KARCH = "arm"
 KERNEL_IMAGETYPE ?= "Image"

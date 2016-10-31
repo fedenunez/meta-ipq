@@ -9,5 +9,6 @@ IMAGE_INSTALL += " \
 	${IPQ_BASE_PKGS} \
 	${SSDK_PKGS}	\
 	${NETWORK_PKGS} \
-	qca-edma \
+	${NSS_PKGS} \
+	${WIFI_PKGS} \
 	"

@@ -14,4 +14,4 @@ NSS_PKGS = " \
 
 SSDK_PKGS ="qca-ssdk qca-ssdk-shell"
 
-WIFI_PKGS = "qca-wififw qca-wifi"
+WIFI_PKGS = "qca-hostapd qca-wpasupplicant qca-wififw qca-wifi qca-wifi-tools"

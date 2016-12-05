@@ -14,3 +14,9 @@ module_autoload_ehci-hcd = "ehci-hcd ehci-platform ehci-orion ehci-atmel"
 
 KERNEL_MODULE_AUTOLOAD += "xhci-hcd"
 module_autoload_xhci-hcd = "xhci-hcd xhci-pci xhci-plat-hcd"
+
+# net/ipv4/netfilter kernel loadable modules
+KERNEL_MODULE_AUTOLOAD += "nf_conntrack_ipv4 nf_defrag_ipv4"
+
+# net/ipv6/netfilter kernel loadable modules
+KERNEL_MODULE_AUTOLOAD += "nf_conntrack_ipv6 nf_defrag_ipv6"

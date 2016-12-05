@@ -5,7 +5,7 @@ include recipes-core/images/ipq-images.inc
 
 IMAGE_FEATURES += "package-management"
 
-IPQ_BASE_PKGS = "sysstat strace dropbear e2fsprogs kexec-tools libnl uci bridge-utils u-boot-fw-utils mtd initoverlay"
+IPQ_BASE_PKGS = "sysstat strace dropbear e2fsprogs kexec-tools libnl uci bridge-utils u-boot-fw-utils mtd initoverlay procps"
 
 NETWORK_PKGS = "ethtool iproute2 iptables iputils dhcp-server wireless-tools"
 

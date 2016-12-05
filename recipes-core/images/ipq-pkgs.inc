@@ -7,7 +7,7 @@ IMAGE_FEATURES += "package-management"
 
 IPQ_BASE_PKGS = "sysstat strace dropbear e2fsprogs kexec-tools libnl uci bridge-utils u-boot-fw-utils mtd initoverlay procps"
 
-NETWORK_PKGS = "ethtool iproute2 iptables iputils dhcp-server wireless-tools"
+NETWORK_PKGS = "ethtool iproute2 iptables iputils dhcp-server wireless-tools mcproxy qca-mcs-lkm qca-mcs-app"
 
 NSS_PKGS = " \
 	    qca-nss-drv \

@@ -7,7 +7,7 @@ IMAGE_FEATURES += "package-management"
 
 IPQ_BASE_PKGS = "sysstat strace dropbear e2fsprogs kexec-tools libnl uci bridge-utils u-boot-fw-utils mtd initoverlay procps"
 
-NETWORK_PKGS = "ethtool iproute2 iptables iputils dhcp-server wireless-tools mcproxy qca-mcs-lkm"
+NETWORK_PKGS = "ethtool iproute2 iproute2-tc iptables iputils dhcp-server wireless-tools mcproxy qca-mcs-lkm"
 
 NSS_PKGS = " \
 	    qca-nss-drv \
@@ -20,4 +20,6 @@ SSDK_PKGS ="qca-ssdk qca-ssdk-shell"
 
 WIFI_PKGS = "qca-hostapd qca-wpasupplicant qca-wififw qca-wifi qca-wifi-tools"
 
-TEST_PKGS = "iozone3 dosfstools lrzsz"
+TEST_PKGS = "iozone3 dosfstools lrzsz i2c-tools gptfdisk"
+
+UTILS = "perf pm-utils sysstat file rng-tools"

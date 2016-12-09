@@ -11,6 +11,7 @@ IMAGE_INSTALL += " \
 	${NETWORK_PKGS} \
 	${NSS_PKGS} \
 	${WIFI_PKGS} \
+	${UTILS} \
 	"
 
 EXTRA_IMAGEDEPENDS += " \

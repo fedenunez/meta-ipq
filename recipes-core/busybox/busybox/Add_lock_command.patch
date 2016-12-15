@@ -1,0 +1,41 @@
+Index: busybox-1.24.1/include/applets.src.h
+===================================================================
+--- busybox-1.24.1.orig/include/applets.src.h   2015-10-24 05:54:35.000000000 +0530
++++ busybox-1.24.1/include/applets.src.h        2016-12-15 19:56:25.670078779 +0530
+@@ -211,6 +211,7 @@
+ IF_LOAD_POLICY(APPLET(load_policy, BB_DIR_USR_SBIN, BB_SUID_DROP))
+ IF_LOADFONT(APPLET(loadfont, BB_DIR_USR_SBIN, BB_SUID_DROP))
+ IF_LOADKMAP(APPLET(loadkmap, BB_DIR_SBIN, BB_SUID_DROP))
++IF_LOCK(APPLET(lock, BB_DIR_BIN, BB_SUID_DROP))
+ IF_LOGGER(APPLET(logger, BB_DIR_USR_BIN, BB_SUID_DROP))
+ /* Needs to be run by root or be suid root - needs to change uid and gid: */
+ IF_LOGIN(APPLET(login, BB_DIR_BIN, BB_SUID_REQUIRE))
+Index: busybox-1.24.1/miscutils/Config.src
+===================================================================
+--- busybox-1.24.1.orig/miscutils/Config.src    2015-07-13 07:48:47.000000000 +0530
++++ busybox-1.24.1/miscutils/Config.src 2016-12-15 18:17:21.306079488 +0530
+@@ -308,6 +308,12 @@
+        help
+          'last' displays a list of the last users that logged into the system.
+
++config LOCK
++       bool "lock"
++       default y
++       help
++         Small utility for using locks in scripts
++
+ choice
+        prompt "Choose last implementation"
+        depends on LAST
+Index: busybox-1.24.1/miscutils/Kbuild.src
+===================================================================
+--- busybox-1.24.1.orig/miscutils/Kbuild.src    2015-07-13 07:48:47.000000000 +0530
++++ busybox-1.24.1/miscutils/Kbuild.src 2016-12-15 12:24:34.698082014 +0530
+@@ -28,6 +28,7 @@
+ lib-$(CONFIG_FEATURE_LAST_SMALL)+= last.o
+ lib-$(CONFIG_FEATURE_LAST_FANCY)+= last_fancy.o
+ lib-$(CONFIG_LESS)        += less.o
++lib-$(CONFIG_LOCK)        += lock.o
+ lib-$(CONFIG_MAKEDEVS)    += makedevs.o
+ lib-$(CONFIG_MAN)         += man.o
+ lib-$(CONFIG_MICROCOM)    += microcom.o

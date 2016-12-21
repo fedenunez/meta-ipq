@@ -1,5 +1,8 @@
 #List of the packages for IPQ Platform categorized
 
+# UBI image generation support
+include recipes-core/images/ipq-images.inc
+
 IMAGE_FEATURES += "package-management"
 
 IPQ_BASE_PKGS = "sysstat strace dropbear e2fsprogs kexec-tools libnl uci bridge-utils u-boot-fw-utils mtd initoverlay"

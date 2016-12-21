@@ -3,7 +3,10 @@ SOC_FAMILY = "IPQ"
 include conf/machine/include/soc-family.inc
 include conf/machine/include/tune-cortexa7.inc
 
-IMAGE_FSTYPES = "squashfs squashfs-xz ext4"
+IMAGE_FSTYPES = "squashfs squashfs-xz ubi ext4"
+MKUBIFS_ARGS = "-m 2048 -e 124KiB -c 4096 -U -F"
+UBINIZE_ARGS = "-m 2048 -p 128KiB"
+
 SYSVINIT_ENABLED_GETTYS = ""
 
 KARCH = "arm"

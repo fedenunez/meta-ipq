@@ -124,10 +124,14 @@ install_fit_images() {
 
 do_deploy_append() {
 
+	mkdir -p ${DEPLOYDIR}/dtbs
 	for d in ${KERNEL_DEVICETREE}; do
 		if [ ! -e "$d" ]; then
 			install_fit_images "${d%.dtb}"
+			install ${B}/arch/${KARCH}/boot/dts/${d} ${DEPLOYDIR}/dtbs/
 		fi
 	done
 	install_fit_images qcom-ipq40xx-ap.dkxx
+	install ${B}/vmlinux ${DEPLOYDIR}/${MACHINE}-vmlinux.elf
+	install ${B}/arch/${KARCH}/boot/Image ${DEPLOYDIR}/dtbs/
 }

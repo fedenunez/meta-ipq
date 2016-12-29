@@ -18,3 +18,5 @@ NSS_PKGS = " \
 SSDK_PKGS ="qca-ssdk qca-ssdk-shell"
 
 WIFI_PKGS = "qca-hostapd qca-wpasupplicant qca-wififw qca-wifi qca-wifi-tools"
+
+TEST_PKGS = "iozone3 dosfstools lrzsz"

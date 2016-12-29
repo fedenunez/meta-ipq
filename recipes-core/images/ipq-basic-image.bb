@@ -10,3 +10,7 @@ IMAGE_INSTALL += " \
 	${SSDK_PKGS} \
 	qca-edma \
 	"
+
+EXTRA_IMAGEDEPENDS += " \
+		${TEST_PKGS} \
+		"

@@ -12,3 +12,7 @@ IMAGE_INSTALL += " \
 	${NSS_PKGS} \
 	${WIFI_PKGS} \
 	"
+
+EXTRA_IMAGEDEPENDS += " \
+		${TEST_PKGS} \
+		"

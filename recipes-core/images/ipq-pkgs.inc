@@ -13,6 +13,7 @@ NSS_PKGS = " \
 	    qca-nss-drv \
 	    qca-nss-gmac \
 	    qca-edma \
+	    shortcut-fe \
 	    "
 
 SSDK_PKGS ="qca-ssdk qca-ssdk-shell"

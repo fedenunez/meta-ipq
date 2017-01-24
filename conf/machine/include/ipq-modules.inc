@@ -23,3 +23,6 @@ KERNEL_MODULE_AUTOLOAD += "nf_conntrack_ipv4 nf_defrag_ipv4"
 
 # net/ipv6/netfilter kernel loadable modules
 KERNEL_MODULE_AUTOLOAD += "nf_conntrack_ipv6 nf_defrag_ipv6"
+
+# ppp kernel loadable modules
+KERNEL_MODULE_AUTOLOAD += "ppp_async ppp_generic pppoe pppox"

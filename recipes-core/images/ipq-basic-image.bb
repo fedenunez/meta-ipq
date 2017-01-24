@@ -7,7 +7,8 @@ include recipes-core/images/ipq-pkgs.inc
 IMAGE_INSTALL += " \
 	kernel-modules \
 	${IPQ_BASE_PKGS} \
-	${SSDK_PKGS} \
+	${RFS_PKGS} \
+	${SSDK_HNAT_PKGS} \
 	qca-edma \
 	"
 

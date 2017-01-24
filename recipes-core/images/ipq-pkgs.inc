@@ -16,7 +16,11 @@ NSS_PKGS = " \
 	    shortcut-fe \
 	    "
 
-SSDK_PKGS ="qca-ssdk qca-ssdk-shell"
+RFS_PKGS = "qca-rfs"
+
+SSDK_NOHNAT_PKGS ="qca-ssdk-nohnat qca-ssdk-shell"
+
+SSDK_HNAT_PKGS ="qca-ssdk-hnat qca-ssdk-shell"
 
 WIFI_PKGS = "qca-hostapd qca-wpasupplicant qca-wififw qca-wifi qca-wifi-tools"
 

@@ -20,6 +20,6 @@ SSDK_PKGS ="qca-ssdk qca-ssdk-shell"
 
 WIFI_PKGS = "qca-hostapd qca-wpasupplicant qca-wififw qca-wifi qca-wifi-tools"
 
-TEST_PKGS = "iozone3 dosfstools lrzsz i2c-tools gptfdisk"
+TEST_PKGS = "iozone3 dosfstools lrzsz i2c-tools gptfdisk samba"
 
 UTILS = "perf pm-utils sysstat file rng-tools"

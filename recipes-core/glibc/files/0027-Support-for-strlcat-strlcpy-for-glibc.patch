@@ -1,4 +1,4 @@
-From 290299eb67667f26831b62a0d0ab5030392db3b4 Mon Sep 17 00:00:00 2001
+From 3b128532f1bfb5b2884e5d579a77212374856217 Mon Sep 17 00:00:00 2001
 From: Sreedhar Sambangi <ssambang@codeaurora.org>
 Date: Tue, 24 Jan 2017 14:53:37 -0800
 Subject: [PATCH] Support for strlcat & strlcpy for glibc
@@ -6,11 +6,11 @@ Subject: [PATCH] Support for strlcat & strlcpy for glibc
 Signed-off-by: Sreedhar Sambangi <ssambang@codeaurora.org>
 ---
  string/Makefile  |  2 +-
- string/Versions  |  4 ++++
+ string/Versions  |  6 +++---
  string/string.h  | 20 +++++++++++++++++++
  string/strlcat.c | 58 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
  string/strlcpy.c | 54 ++++++++++++++++++++++++++++++++++++++++++++++++++++
- 5 files changed, 137 insertions(+), 1 deletion(-)
+ 5 files changed, 136 insertions(+), 4 deletions(-)
  create mode 100644 string/strlcat.c
  create mode 100644 string/strlcpy.c
 
@@ -28,27 +28,32 @@ index 9c87419..af65875 100644
  strop-tests	:= memchr memcmp memcpy memmove mempcpy memset memccpy	\
  		   stpcpy stpncpy strcat strchr strcmp strcpy strcspn	\
 diff --git a/string/Versions b/string/Versions
-index 59bf35a..abda9d6 100644
+index 59bf35a..7139edf 100644
 --- a/string/Versions
 +++ b/string/Versions
-@@ -80,4 +80,8 @@ libc {
-   GLIBC_2.6 {
-     strerror_l;
+@@ -36,9 +36,9 @@ libc {
+ 
+     # s*
+     stpcpy; stpncpy; strcasecmp; strcat; strchr; strcmp; strcoll; strcpy;
+-    strcspn; strdup; strerror; strerror_r; strfry; strlen; strncasecmp;
+-    strncat; strncmp; strncpy; strndup; strnlen; strpbrk; strrchr; strsep;
+-    strsignal; strspn; strstr; strtok; strtok_r; strxfrm; swab;
++    strcspn; strdup; strerror; strerror_r; strfry; strlen; strlcat; strlcpy;
++    strncasecmp; strncat; strncmp; strncpy; strndup; strnlen; strpbrk; strrchr; 
++    strsep; strsignal; strspn; strstr; strtok; strtok_r; strxfrm; swab;
    }
-+  GLIBC_2.2.5 {
-+	#imported from OpenBSD.
-+	strlcat; strlcpy;
-+	}
- }
+   GLIBC_2.1 {
+     # functions used in macros and other libraries
 diff --git a/string/string.h b/string/string.h
-index 1f3e348..05975c7 100644
+index 1f3e348..f6b2057 100644
 --- a/string/string.h
 +++ b/string/string.h
-@@ -552,6 +552,25 @@ extern int strncasecmp_l (const char *__s1, const char *__s2,
+@@ -552,7 +552,26 @@ extern int strncasecmp_l (const char *__s1, const char *__s2,
  extern char *strsep (char **__restrict __stringp,
  		     const char *__restrict __delim)
       __THROW __nonnull ((1, 2));
 +
+ #endif
 +/*
 + * Appends __src to string __dst of size __n (unlike strncat, __n is the
 + * full size of __dst, not space left).  At most __n-1 characters
@@ -67,9 +72,9 @@ index 1f3e348..05975c7 100644
 +extern size_t strlcpy (char *__dst, __const char *__src, size_t __n)
 +     __THROW __nonnull ((1, 2));
 +
- #endif
  
  #ifdef	__USE_XOPEN2K8
+ /* Return a string describing the meaning of the signal number in SIG.  */
 @@ -574,6 +593,7 @@ extern char *stpncpy (char *__restrict __dest,
       __THROW __nonnull ((1, 2));
  #endif
@@ -205,5 +210,4 @@ index 0000000..8577e27
 -- 
 The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
 a Linux Foundation Collaborative Project
-
 

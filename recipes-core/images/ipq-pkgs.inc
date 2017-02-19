@@ -24,6 +24,6 @@ SSDK_HNAT_PKGS ="qca-ssdk-hnat qca-ssdk-shell"
 
 WIFI_PKGS = "qca-hostapd qca-wpasupplicant qca-wififw qca-wifi qca-wifi-tools"
 
-TEST_PKGS = "iozone3 dosfstools lrzsz i2c-tools gptfdisk samba iperf"
+TEST_PKGS = "iozone3 dosfstools lrzsz i2c-tools gptfdisk samba"
 
-UTILS = "perf pm-utils sysstat file rng-tools"
+UTILS = "perf pm-utils sysstat file rng-tools iperf"

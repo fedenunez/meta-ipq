@@ -6,6 +6,7 @@
 #include <sys/types.h>
 #include <sys/file.h>
 #include <sys/stat.h>
+#include <sys/prctl.h>
 #include <signal.h>
 #include <fcntl.h>
 #include <unistd.h>
@@ -65,6 +66,8 @@ static int do_lock(void)
 			return 1;
 		}
 	}
+	/*to make sure that lock process exits if parent process is killed*/
+	prctl(PR_SET_PDEATHSIG, SIGKILL);
 
 	if (flock(fd, (shared ? LOCK_SH : LOCK_EX)) < 0) {
 		fprintf(stderr, "Can't lock %s\n", file);

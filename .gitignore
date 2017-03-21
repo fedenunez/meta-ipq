@@ -7,6 +7,8 @@
 /recipes-qcawififw
 /recipes-ssdk
 /recipes-wifi
+/recipes-hyfi
+/recipes-mcs
 /release
 *.orig
 *.rej

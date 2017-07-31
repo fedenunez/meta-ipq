@@ -11,6 +11,7 @@ SYSVINIT_ENABLED_GETTYS = ""
 
 KARCH = "arm"
 KERNEL_IMAGETYPE ?= "Image"
+TARGET_FPU="softfp"
 
 MACHINE_FEATURES += "apm usbhost keyboard squashfs vfat ext2 screen touchscreen bluetooth wifi sdio"
 

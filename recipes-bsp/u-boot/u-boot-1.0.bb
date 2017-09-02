@@ -3,7 +3,7 @@ LICENSE = "GPLv2"
 SECTION = "bootloaders"
 
 require ${COREBASE}/meta/recipes-bsp/u-boot/u-boot.inc
-FILESPATH =+ "${TOPDIR}/../:"
+FILESPATH =+ "${TOPDIR}/../boot/:"
 LIC_FILES_CHKSUM = "file://COPYING;md5=1707d6db1d42237583f50183a5651ecb"
 
 LOCALVERSION ?= "+yocto"
@@ -11,8 +11,8 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
 COMPATIBLE_MACHINE = "ipq40xx"
 DEPENDS +="u-boot-mkimage-native"
 
-SRC_URI = "file://boot/uboot-1.0"
-S = "${WORKDIR}/boot/uboot-1.0"
+SRC_URI = "file://uboot-1.0"
+S = "${WORKDIR}/uboot-1.0"
 
 UBOOT_MACHINE = "ipq40xx_cdp_config"
 

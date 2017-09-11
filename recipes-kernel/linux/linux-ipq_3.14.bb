@@ -7,7 +7,7 @@ LINUX_VERSION ?= "3.14"
 LINUX_DESCRIPTION = "QCA IPQ Linux 3.14"
 
 SRC_URI = "file://kernel \
-	   file://ipq40xx-config-3.14 \
+	   file://ipq40xx-defconfig \
 	   "
 S = "${WORKDIR}/kernel"
 SRC_URI += "file://fit"

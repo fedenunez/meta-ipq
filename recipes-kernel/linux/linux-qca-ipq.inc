@@ -35,7 +35,7 @@ kernel_conf_variable() {
 
 copy_kernel_config() {
 	CONFIG_NAME="${@bb.data.getVar('MACHINE', d, 1).split('-')[0]}"
-	install -m 0644 ${B}/../${CONFIG_NAME}-config-${LINUX_VERSION} ${WORKDIR}/defconfig || die "No default configuration for ${MACHINE}/${KERNEL_DEFCONFIG} available."
+	install -m 0644 ${B}/../${CONFIG_NAME}-defconfig ${WORKDIR}/defconfig || die "No default configuration for ${MACHINE}/${KERNEL_DEFCONFIG} available."
 }
 
 do_configure_prepend() {

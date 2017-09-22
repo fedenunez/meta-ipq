@@ -15,6 +15,6 @@ TARGET_FPU="softfp"
 
 MACHINE_FEATURES += "apm usbhost keyboard squashfs vfat ext2 screen touchscreen bluetooth wifi sdio"
 
-MACHINE_EXTRA_RRECOMMENDS += " kernel-modules kernel-devicetree"
+MACHINE_EXTRA_RRECOMMENDS += " kernel-modules"
 
 RDEPENDS_kernel-base = ""

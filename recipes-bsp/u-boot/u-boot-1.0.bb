@@ -22,14 +22,22 @@ UBOOT_LDFLAGS+= "-L${STAGING_LIBDIR}/${TARGET_SYS}/${PREFERED_VERSION_LIBGCC}"
 
 # Image files for Uboot
 UBOOT_IMAGETYPE ?= "bin"
+UBOOT_ELF_SUFFIX ?= "elf"
 UBOOT_ELF = "u-boot"
+UBOOT_ELF_IMAGE ?= "u-boot-${MACHINE}-${PV}-${PR}.${UBOOT_ELF_SUFFIX}"
+UBOOT_ELF_BINARY ?= "u-boot.${UBOOT_ELF_SUFFIX}"
+
 
 do_compile() {
 	make CROSS_COMPILE=${TARGET_PREFIX} ${UBOOT_MACHINE}
-	make CROSS_COMPILE=${TARGET_PREFIX} CC="${CC}" LDFLAGS="${UBOOT_LDFLAGS}" LD="${LD}" HOSTSTRIP=true
+	make CROSS_COMPILE=${TARGET_PREFIX} CC="${CC}" LDFLAGS="${UBOOT_LDFLAGS}" HOSTSTRIP=true
 }
 
 do_deploy_append() {
+	install ${S}/${UBOOT_ELF} ${DEPLOYDIR}/${UBOOT_ELF_IMAGE}
+	if [ ! -e ${UBOOT_ELF_BINARY} ]; then
+		ln -sf ${UBOOT_ELF_IMAGE} ${UBOOT_ELF_BINARY}
+	fi
 	cp u-boot-${MACHINE}-${PV}-${PR}.${UBOOT_ELF_SUFFIX} u-boot-${MACHINE}-${PV}-${PR}-stripped.${UBOOT_ELF_SUFFIX}
 	${STRIP} u-boot-${MACHINE}-${PV}-${PR}-stripped.${UBOOT_ELF_SUFFIX}
 }

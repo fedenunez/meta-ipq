@@ -22,6 +22,7 @@ mk_fit_images() {
 	cd ../fit
 	oe_runmake "ARCH=${KARCH}" \
 			'DESCRIPTION=IPQ Yocto Linux FIT (Flattened Image Tree)' \
+			"LINUX_VERSION=${LINUX_VERSION}" \
 			"ADDRESS=${addr}" \
 			'KERNEL_IMAGE=${B}/arch/${KARCH}/boot/Image' \
 			"DTB=${B}/arch/${KARCH}/boot/dts/${name}.dtb" \
@@ -71,6 +72,7 @@ mk_multi_fit_image() {
 	echo "pwd = `pwd`"
 	cd ../fit
 	sed -i -e 's/ARCH/${KARCH}/' -e "s/LOAD/${addr}/" \
+		-e "s/LINUX_VERSION/${LINUX_VERSION}/" \
 		-e "s/ENTRY/${addr}/" \
 		-e 's/DESCRIPTION/"IPQ Yocto Linux FIT (Flattened Image Tree)"/' ${B}/../fit/multi.its
 
@@ -79,11 +81,16 @@ mk_multi_fit_image() {
 	cd ${B}
 }
 
+find_device_tree() {
+       echo "$(basename $(find ${B}/arch/${KARCH}/boot/dts -name $1*.dts) 2>/dev/null)"
+}
+
 do_compile_append() {
 
 	for d in ${KERNEL_DEVICETREE}; do
 		if [ ! -e "$d" ]; then
-			mk_fit_images "${d%.dtb}" ${KERNEL_LOADADDR}
+			dts=$(find_device_tree "${d%.dtb}")
+			mk_fit_images "${dts%.dts}" ${KERNEL_LOADADDR}
 		fi
 	done
 
@@ -91,8 +98,9 @@ do_compile_append() {
 	i=0
 	for d in ${KERNEL_DEVICETREE}; do
 		if [ ! -e "$d" ]; then
-			board_name=$(basename $d .dtb | sed -e 's/^\([^\(.*?-?\)]*-\)//g')
-			generate_FDT "${d%.dtb}" $board_name
+			dts=$(find_device_tree "${d%.dtb}")
+			board_name=$(basename $dts .dts | sed -e 's/^\([^\(.*?-?\)]*-\)//g')
+			generate_FDT "${dts%.dts}" $board_name
 		fi
 	done
 
@@ -105,7 +113,8 @@ EOF
 	i=0
 	for d in ${KERNEL_DEVICETREE}; do
 		if [ ! -e "$d" ]; then
-			board_name=$(basename $d .dtb | sed -e 's/^\([^\(.*?-?\)]*-\)//g')
+			dts=$(find_device_tree "${d%.dtb}")
+			board_name=$(basename $dts .dts | sed -e 's/^\([^\(.*?-?\)]*-\)//g')
 			generate_CONFIG $board_name
 		fi
 	done
@@ -127,7 +136,8 @@ do_deploy_append() {
 	mkdir -p ${DEPLOYDIR}/dtbs
 	for d in ${KERNEL_DEVICETREE}; do
 		if [ ! -e "$d" ]; then
-			install_fit_images "${d%.dtb}"
+			dts=$(find_device_tree "${d%.dtb}")
+			install_fit_images "${dts%.dts}"
 			install ${B}/arch/${KARCH}/boot/dts/${d} ${DEPLOYDIR}/dtbs/
 		fi
 	done

@@ -40,4 +40,5 @@ KERNEL_MODULE_AUTOLOAD += "nf_conntrack_ipv6 nf_defrag_ipv6"
 KERNEL_MODULE_AUTOLOAD += "ip6_tables ip6table_filter ip6table_mangle ip6table_raw ip6t_REJECT"
 
 # ppp kernel loadable modules
-KERNEL_MODULE_AUTOLOAD += "ppp_async ppp_generic pppoe pppox"
+KERNEL_MODULE_AUTOLOAD += "pppoe"
+module_autoload_pppoe += "gre crc-ccitt ppp_async ppp_generic pppox pppoe pptp"

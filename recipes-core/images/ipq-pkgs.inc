@@ -18,6 +18,8 @@ NSS_PKGS = " \
 
 RFS_PKGS = "qca-rfs"
 
+QCA_EDMA = "qca-edma"
+
 SSDK_NOHNAT_PKGS ="qca-ssdk-nohnat qca-ssdk-shell"
 
 SSDK_HNAT_PKGS ="qca-ssdk-hnat qca-ssdk-shell"

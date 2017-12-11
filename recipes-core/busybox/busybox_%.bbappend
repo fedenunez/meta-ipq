@@ -1,4 +1,7 @@
-SRC_URI += "file://fragment.cfg"
+SRC_URI += "\
+	    file://fragment.cfg \
+	    file://001-simple_script.patch;patchdir=../ \
+	    "
 
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
 

@@ -24,6 +24,10 @@ SSDK_NOHNAT_PKGS ="qca-ssdk-nohnat qca-ssdk-shell"
 
 SSDK_HNAT_PKGS ="qca-ssdk-hnat qca-ssdk-shell"
 
+SHORTCUT_FE = "shortcut-fe simulated-driver"
+
+QCA_ECM = "qca-nss-ecm"
+
 WIFI_PKGS = "qca-hostapd qca-wpasupplicant qca-wififw qca-wifi qca-wifi-tools qca-wrapd"
 
 TEST_PKGS = "iozone3 dosfstools lrzsz i2c-tools gptfdisk samba tcpdump ntfs-3g"

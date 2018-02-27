@@ -28,10 +28,10 @@ SHORTCUT_FE = "shortcut-fe simulated-driver"
 
 QCA_ECM = "qca-nss-ecm"
 
-WIFI_PKGS = "qca-hostapd qca-wpasupplicant qca-wififw qca-wifi qca-wifi-tools"
+WIFI_PKGS = "qca-hostapd qca-wpasupplicant qca-wififw qca-wifi qca-wifi-tools qca-qcmbr"
 
 MCS_PKGS = "qca-mcs-lkm qca-mcs-app"
 
 TEST_PKGS = "iozone3 dosfstools lrzsz i2c-tools gptfdisk samba tcpdump ntfs-3g"
 
-UTILS = "perf pm-utils sysstat strace file rng-tools iperf initoverlay procps"
+UTILS = "perf pm-utils sysstat strace file rng-tools iperf initoverlay procps samba lua"

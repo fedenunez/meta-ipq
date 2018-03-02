@@ -34,4 +34,4 @@ MCS_PKGS = "qca-mcs-lkm qca-mcs-app"
 
 TEST_PKGS = "iozone3 dosfstools lrzsz i2c-tools gptfdisk samba tcpdump ntfs-3g"
 
-UTILS = "perf pm-utils sysstat strace file rng-tools iperf initoverlay procps samba lua"
+UTILS = "perf pm-utils sysstat strace file rng-tools iperf initoverlay u-boot-fw-utils procps samba lua"

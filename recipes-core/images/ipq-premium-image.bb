@@ -7,6 +7,7 @@ include recipes-core/images/ipq-pkgs.inc
 IMAGE_INSTALL += " \
 	kernel-modules \
 	${IPQ_BASE_PKGS} \
+	${QYOCTO_PKGS} \
 	${RFS_PKGS}	\
 	${SSDK_HNAT_PKGS}	\
 	${NETWORK_PKGS} \

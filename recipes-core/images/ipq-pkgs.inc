@@ -5,7 +5,7 @@ include recipes-core/images/ipq-images.inc
 
 IMAGE_FEATURES += "package-management"
 
-QYOCTO_PKGS = "uci libnl dropbear bridge-utils"
+QYOCTO_PKGS = "uci libnl dropbear bridge-utils lua"
 
 IPQ_BASE_PKGS = "sysstat strace e2fsprogs kexec-tools u-boot-fw-utils mtd initoverlay procps watchdog"
 
@@ -34,6 +34,6 @@ WIFI_PKGS = "qca-hostapd qca-wpasupplicant qca-wififw qca-wifi qca-wifi-tools qc
 
 MCS_PKGS = "qca-mcs-lkm qca-mcs-app"
 
-TEST_PKGS = "iozone3 dosfstools lrzsz i2c-tools gptfdisk iperf samba tcpdump ntfs-3g perf lua"
+TEST_PKGS = "iozone3 dosfstools lrzsz i2c-tools gptfdisk iperf samba tcpdump ntfs-3g perf"
 
 UTILS = "perf pm-utils file rng-tools"

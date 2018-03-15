@@ -19,13 +19,14 @@ module_autoload_xhci-hcd = "xhci-hcd"
 KERNEL_MODULE_AUTOLOAD += "ip_tables iptable_filter iptable_mangle iptable_nat iptable_raw xt_nat"
 
 KERNEL_MODULE_AUTOLOAD += "nf_conntrack"
-module_autoload_nf_conntrack += "nf_conntrack nf_nat_redirect nf_conntrack_rtcache nf_conntrack_tftp nf_log_common nf_nat \
-			nf_conntrack_amanda nf_conntrack_broadcast nf_conntrack_ftp nf_conntrack_h323 \
-			nf_conntrack_irc nf_conntrack_netlink nf_conntrack_pptp nf_conntrack_proto_gre nf_conntrack_proto_sctp \
-			nf_conntrack_sip nf_conntrack_snmp nf_conntrack_tftp nf_nat_amanda nf_nat_ftp nf_nat_irc \
-			nf_nat_proto_sctp nf_nat_sip nf_nat_tftp x_tables xt_CT xt_CLASSIFY xt_DSCP xt_ecn xt_HL xt_mac xt_pkttype xt_tcpmss \
-			xt_comment xt_esp xt_mark2prio xt_quota xt_TCPMSS xt_connbytes xt_helper xt_mark xt_policy xt_recent xt_tcpudp \
-			xt_connlimit xt_hl xt_multiport xt_REDIRECT xt_time xt_connmark xt_length xt_nat xt_state xt_conntrack \
+module_autoload_nf_conntrack += "nf_conntrack nf_conntrack_tftp nf_conntrack_amanda nf_conntrack_broadcast \
+			nf_conntrack_ftp nf_conntrack_h323 nf_conntrack_irc nf_conntrack_netlink \
+			nf_conntrack_pptp nf_conntrack_proto_gre nf_conntrack_sip nf_conntrack_snmp \
+			nf_conntrack_tftp nf_nat_amanda nf_nat_ftp nf_nat_irc \
+			nf_nat_proto_sctp nf_nat_sip nf_nat_tftp x_tables xt_CT xt_CLASSIFY xt_DSCP xt_ecn xt_HL \
+			xt_mac xt_pkttype xt_tcpmss xt_comment xt_esp xt_mark2prio xt_quota xt_TCPMSS xt_connbytes \
+			xt_helper xt_mark xt_policy xt_recent xt_tcpudp xt_connlimit xt_hl xt_multiport \
+			xt_REDIRECT xt_time xt_connmark xt_length xt_nat xt_state xt_conntrack \
 			xt_limit xt_owner xt_statistic xt_addrtype xt_dscp xt_DSCP xt_id xt_LOG xt_physdev xt_string"
 
 

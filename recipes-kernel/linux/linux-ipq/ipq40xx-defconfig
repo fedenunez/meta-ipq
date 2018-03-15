@@ -332,9 +332,6 @@ CONFIG_ARCH_QCOM=y
 CONFIG_MSM_PCIE=y
 CONFIG_MSM_RPM_LOG=y
 
-#
-# Qualcomm SoC Selection
-#
 CONFIG_ARCH_MSM8X60=y
 # CONFIG_ARCH_MSM8960 is not set
 # CONFIG_ARCH_MSM8974 is not set
@@ -3006,9 +3003,6 @@ CONFIG_MTD_SPINAND_GIGADEVICE=y
 # CONFIG_DGNC is not set
 # CONFIG_DGAP is not set
 
-#
-# Qualcomm MSM specific device drivers
-#
 CONFIG_SPS=y
 # CONFIG_SPS_SUPPORT_BAMDMA is not set
 CONFIG_SPS_SUPPORT_NDP_BAM=y

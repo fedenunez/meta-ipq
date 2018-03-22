@@ -16,14 +16,69 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #
 
-. /lib/ipq806x.sh
-. /lib/functions.sh
+. /lib/ipq.sh
+. /lib/functions/boot.sh
+
+# ipq806x_power_auto()
+#   Changes the governor to ondemand and sets the default parameters for cpu ondemand governor.
+#   The parameters are tuned for best performance than for power.
+#   Also, the up_thresholds have been set to low value, to workaround the cpu
+#   utilization anamolies we are seeing with kcpustat with tickless kernel.
+
+ipq806x_power_auto() {
+        echo "ondemand" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+        echo "ondemand" > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor
+
+        # Change the minimum operating frequency for CPU0.
+        # This is required for cases where large amount of network traffic is sent
+        # instantaneously  without any ramp-up time , when CPU is at minimum perf level.
+        # At 384 MHz, CPU0 stays fully busy in softirq context and doesn't move to ksoftirqd, and
+        # doesn't give any other thread including cpufreq thread a chance to run.
+        # Hence, the CPU frequency is locked up at 384MHz till the traffic is stopped.
+        # Increasing the min frequency for CPU0 to 800 MHz (L2=1GHz), allows 4 Gbps instantaneous
+        # traffic without any hangs/lockups.
+        #
+        # CPU1 min frequency also has to be increased because there is a hardware constraint
+        # kraits cannot operate at 384MHz when L2 is at 1GHz.
+        #
+        # The impact on idle-state power with this change is about ~40-45mW.
+        echo "800000" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+        echo "800000" > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq
+
+        # Change sampling rate for frequency scaling decisions to 1s, from 10 ms
+        echo "1000000" > /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate
+
+        # Change sampling rate for frequency down scaling decision to 10s
+        echo 10 > /sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor
+
+        # Change the CPU load threshold above which frequency is up-scaled to
+        # turbo frequency,to 50%
+        echo 50 > /sys/devices/system/cpu/cpufreq/ondemand/up_threshold
+}
+
+ipq40xx_power_auto() {
+        # change scaling governor as ondemand to enable clock scaling based on system load
+        echo "ondemand" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+
+        # set scaling min freq as 200 MHz
+        echo "200000" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+
+        # Change sampling rate for frequency scaling decisions to 1s, from 10 ms
+        echo "1000000" > /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate
+
+        # Change sampling rate for frequency down scaling decision to 10s
+        echo 10 > /sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor
+
+        # Change the CPU load threshold above which frequency is up-scaled to
+        # turbo frequency,to 50%
+        echo 50 > /sys/devices/system/cpu/cpufreq/ondemand/up_threshold
+}
 
 ipq8064_ac_power()
 {
 	echo "Entering AC-Power Mode"
 # Krait Power-UP Sequence
-	/etc/init.d/powerctl restart
+	ipq806x_power_auto
 
 # Clocks Power-UP Sequence
 	echo 400000000 > /sys/kernel/debug/clk/afab_a_clk/rate
@@ -38,18 +93,18 @@ ipq8064_ac_power()
 	echo 1 > /proc/sys/dev/nss/clock/auto_scale
 
 # PCIe Power-UP Sequence
-	sleep 1
-	echo 1 > /sys/bus/pci/rcrescan
+#	sleep 1
+#	echo 1 > /sys/bus/pci/rcrescan
 	sleep 2
 	echo 1 > /sys/bus/pci/rescan
 
 	sleep 1
 
 # Wifi Power-up Sequence
-	wifi up
+	/etc/utopia/service.d/service_wlan.sh wlan-start
 
 # Bringing Up LAN Interface
-	ifup lan
+	sysevent set lan-start
 
 # Sata Power-UP Sequence
 	[ -f /sys/devices/platform/msm_sata.0/ahci.0/msm_sata_suspend ] && {
@@ -63,11 +118,11 @@ ipq8064_ac_power()
 	echo "- - -" > /sys/class/scsi_host/host0/scan
 
 # USB Power-UP Sequence
-	[ -d /sys/module/dwc3_ipq ] || insmod dwc3-ipq
-	[ -d /sys/module/dwc3_qcom ] || insmod dwc3-qcom
-	[ -d /sys/module/phy_qcom_hsusb ] || insmod phy-qcom-hsusb
-	[ -d /sys/module/phy_qcom_ssusb ] || insmod phy-qcom-ssusb
-	[ -d /sys/module/dwc3 ] || insmod dwc3
+	[ -d /sys/module/dwc3_ipq ] || modprobe dwc3-ipq
+	[ -d /sys/module/dwc3_qcom ] || modprobe dwc3-qcom
+	[ -d /sys/module/phy_qcom_hsusb ] || modprobe phy-qcom-hsusb
+	[ -d /sys/module/phy_qcom_ssusb ] || modprobe phy-qcom-ssusb
+	[ -d /sys/module/dwc3 ] || modprobe dwc3
 
 # SD/MMC Power-UP sequence
 	local emmcblock="$(find_mmc_part "rootfs")"
@@ -88,10 +143,10 @@ ipq8064_battery_power()
 	echo "Entering Battery Mode..."
 
 # Wifi Power-down Sequence
-	wifi unload
+	/etc/utopia/service.d/service_wlan.sh wlan-stop
 
 # Bring Down LAN Interface
-	ifdown lan
+	sysevent set lan-stop
 
 # PCIe Power-Down Sequence
 
@@ -126,7 +181,7 @@ ipq8064_battery_power()
 	partition=`cat /proc/partitions | awk -F " " '{print $4}'`
 
 	for entry in $partition; do
-		sd_entry=$(echo $entry | head -c 2)
+		sd_entry=$(echo $entry | cut -c1-2)
 
 		if [ "$sd_entry" = "sd" ]; then
 			[ -f /sys/block/$entry/device/delete ] && {
@@ -191,7 +246,7 @@ ipq4019_ap_dk01_1_ac_power()
 {
 	echo "Entering AC-Power Mode"
 # Cortex Power-UP Sequence
-	/etc/init.d/powerctl restart
+	ipq40xx_power_auto
 
 # Power on Malibu PHY of LAN ports
 	ssdk_sh port poweron set 1
@@ -199,24 +254,24 @@ ipq4019_ap_dk01_1_ac_power()
 	ssdk_sh port poweron set 3
 	ssdk_sh port poweron set 4
 # Wifi Power-up Sequence
-	wifi up
+	/etc/utopia/service.d/service_wlan.sh wlan-start
 
 # USB Power-UP Sequence
 	if ! [ -d /sys/module/dwc3_ipq40xx -o -d /sys/module/dwc3_of_simple ]
 	then
-		insmod phy-qca-baldur.ko
-		insmod phy-qca-uniphy.ko
+		modprobe phy-qca-baldur
+		modprobe phy-qca-uniphy
 		if [ -e /lib/modules/$(uname -r)/dwc3-of-simple.ko ]
 		then
-			insmod dwc3-of-simple.ko
+			modprobe dwc3-of-simple
 		else
-			insmod dwc3-ipq40xx.ko
+			modprobe dwc3-ipq40xx
 		fi
-		insmod dwc3.ko
+		modprobe dwc3
 	fi
 
 # LAN interface up
-	ifup lan
+	sysevent set lan-start
 
 	exit 0
 }
@@ -226,14 +281,14 @@ ipq4019_ap_dk01_1_battery_power()
 	echo "Entering Battery Mode..."
 
 # Wifi Power-down Sequence
-	wifi unload
+	/etc/utopia/service.d/service_wlan.sh wlan-stop
 
 # Find scsi devices and remove it
 
 	partition=`cat /proc/partitions | awk -F " " '{print $4}'`
 
 	for entry in $partition; do
-		sd_entry=$(echo $entry | head -c 2)
+		sd_entry=$(echo $entry | cut -c1-2)
 
 		if [ "$sd_entry" = "sd" ]; then
 			[ -f /sys/block/$entry/device/delete ] && {
@@ -264,7 +319,7 @@ ipq4019_ap_dk01_1_battery_power()
 	sleep 2
 
 # LAN interface down
-	ifdown lan
+	sysevent set lan-stop
 
 # Cortex Power-down Sequence
 	echo 48000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
@@ -275,7 +330,7 @@ ipq4019_ap_dk04_1_ac_power()
 {
 	echo "Entering AC-Power Mode"
 # Cortex Power-UP Sequence
-	/etc/init.d/powerctl restart
+	ipq40xx_power_auto
 
 # Power on Malibu PHY of LAN ports
 	ssdk_sh port poweron set 1
@@ -284,32 +339,32 @@ ipq4019_ap_dk04_1_ac_power()
 	ssdk_sh port poweron set 4
 
 # PCIe Power-UP Sequence
-	sleep 1
-	echo 1 > /sys/bus/pci/rcrescan
+#	sleep 1
+#	echo 1 > /sys/bus/pci/rcrescan
 	sleep 2
 	echo 1 > /sys/bus/pci/rescan
 
 	sleep 1
 
 # Wifi Power-up Sequence
-	wifi up
+	/etc/utopia/service.d/service_wlan.sh wlan-start
 
 # USB Power-UP Sequence
 	if ! [ -d /sys/module/dwc3_ipq40xx -o -d /sys/module/dwc3_of_simple ]
 	then
-		insmod phy-qca-baldur.ko
-		insmod phy-qca-uniphy.ko
+		modprobe phy-qca-baldur
+		modprobe phy-qca-uniphy
 		if [ -e /lib/modules/$(uname -r)/dwc3-of-simple.ko ]
 		then
-			insmod dwc3-of-simple.ko
+			modprobe dwc3-of-simple
 		else
-			insmod dwc3-ipq40xx.ko
+			modprobe dwc3-ipq40xx
 		fi
-		insmod dwc3.ko
+		modprobe dwc3
 	fi
 
 # LAN interface up
-	ifup lan
+	sysevent set lan-start
 
 # SD/MMC Power-UP sequence
 	local emmcblock="$(find_mmc_part "rootfs")"
@@ -361,14 +416,14 @@ ipq4019_ap_dk04_1_battery_power()
 	sleep 1
 
 # Wifi Power-down Sequence
-	wifi unload
+	/etc/utopia/service.d/service_wlan.sh wlan-stop
 
 # Find scsi devices and remove it
 
 	partition=`cat /proc/partitions | awk -F " " '{print $4}'`
 
 	for entry in $partition; do
-		sd_entry=$(echo $entry | head -c 2)
+		sd_entry=$(echo $entry | cut -c1-2)
 
 		if [ "$sd_entry" = "sd" ]; then
 			[ -f /sys/block/$entry/device/delete ] && {
@@ -410,7 +465,7 @@ ipq4019_ap_dk04_1_battery_power()
 	fi
 
 # LAN interface down
-	ifdown lan
+	sysevent set lan-stop
 
 # Cortex Power-down Sequence
 	echo 48000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
@@ -505,7 +560,7 @@ ipq8074_battery_power()
 
 }
 
-board=$(ipq806x_board_name)
+board=$(ipq_board_name)
 case "$1" in
 	false)
 		case "$board" in

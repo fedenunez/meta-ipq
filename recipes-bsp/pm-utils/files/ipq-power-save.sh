@@ -339,8 +339,8 @@ ipq4019_ap_dk04_1_ac_power()
 	ssdk_sh port poweron set 4
 
 # PCIe Power-UP Sequence
-#	sleep 1
-#	echo 1 > /sys/bus/pci/rcrescan
+	sleep 1
+	echo 1 > /sys/bus/pci/rcrescan
 	sleep 2
 	echo 1 > /sys/bus/pci/rescan
 

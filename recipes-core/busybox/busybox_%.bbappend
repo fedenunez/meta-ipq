@@ -1,7 +1,10 @@
 SRC_URI += "\
 	    file://fragment.cfg \
-	    file://001-simple_script.patch;patchdir=../ \
 	    "
+
+SRC_URI_append_ipq = "\
+		      file://001-simple_script.patch;patchdir=../ \
+		     "
 
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
 

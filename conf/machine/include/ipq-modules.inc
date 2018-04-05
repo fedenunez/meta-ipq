@@ -27,7 +27,7 @@ module_autoload_nf_conntrack += "nf_conntrack nf_conntrack_tftp nf_conntrack_ama
 			xt_mac xt_pkttype xt_tcpmss xt_comment xt_esp xt_mark2prio xt_quota xt_TCPMSS xt_connbytes \
 			xt_helper xt_mark xt_policy xt_recent xt_tcpudp xt_connlimit xt_hl xt_multiport \
 			xt_REDIRECT xt_time xt_connmark xt_length xt_nat xt_state xt_conntrack \
-			xt_limit xt_owner xt_statistic xt_addrtype xt_dscp xt_DSCP xt_id xt_LOG xt_physdev xt_string"
+			xt_limit xt_owner xt_statistic xt_addrtype xt_dscp xt_DSCP xt_LOG xt_physdev xt_string"
 
 
 # net/ipv4/netfilter kernel loadable modules

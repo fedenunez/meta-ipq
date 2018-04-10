@@ -36,4 +36,4 @@ MCS_PKGS = "qca-mcs-lkm qca-mcs-app"
 
 TEST_PKGS = "iozone3 dosfstools lrzsz i2c-tools gptfdisk iperf samba tcpdump ntfs-3g perf"
 
-UTILS = "perf pm-utils file rng-tools"
+UTILS = "perf pm-utils file rng-tools ppp ppp-oe"

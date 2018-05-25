@@ -33,6 +33,16 @@ kernel_conf_variable() {
 	fi
 }
 
+# returns all the elements from the src uri that are .cfg files
+def find_cfgs(d):
+    sources=src_patches(d, True)
+    sources_list=[]
+    for s in sources:
+        if s.endswith('.cfg'):
+            sources_list.append(s)
+
+    return sources_list
+
 copy_kernel_config() {
 	CONFIG_NAME="${@bb.data.getVar('MACHINE', d, 1).split('-')[0]}"
 	install -m 0644 ${B}/../${CONFIG_NAME}-defconfig ${WORKDIR}/defconfig || die "No default configuration for ${MACHINE}/${KERNEL_DEFCONFIG} available."
@@ -57,6 +67,7 @@ do_configure_prepend() {
 
 	sed -e "${CONF_SED_SCRIPT}" < '${WORKDIR}/defconfig' >> '${B}/.config'
 
+	KERNEL_CONFIG_FRAGMENTS="${@" ".join(find_cfgs(d))}"
 	if [ "${SCMVERSION}" = "y" ]; then
 		# Add GIT revision to the local version
 		head=`git --git-dir=${S}/.git  rev-parse --verify --short HEAD 2> /dev/null`

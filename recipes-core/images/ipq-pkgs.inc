@@ -7,7 +7,7 @@ IMAGE_FEATURES += "package-management"
 
 QYOCTO_PKGS = "uci libnl dropbear bridge-utils lua"
 
-IPQ_BASE_PKGS = "sysstat strace e2fsprogs kexec-tools u-boot-fw-utils mtd initoverlay procps watchdog button-hotplug"
+IPQ_BASE_PKGS = "sysstat strace e2fsprogs kexec-tools u-boot-fw-utils mtd initoverlay procps watchdog button-hotplug mcproxy"
 
 NETWORK_PKGS = "ethtool iproute2 iproute2-tc iptables iputils dhcp-server wireless-tools mcproxy qca-mcs-lkm qca-mcs-app"
 

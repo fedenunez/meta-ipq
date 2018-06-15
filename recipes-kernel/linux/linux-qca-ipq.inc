@@ -6,7 +6,6 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=d7810fab7487fb0aad327b76f1be7cd7"
 
 inherit kernel
 
-FILESPATH =+ "${TOPDIR}/../:"
 # Put a local version until we have a true SRCREV to point to
 LOCALVERSION ?= "+yocto"
 SCMVERSION ?= "n"
@@ -18,7 +17,6 @@ INITRAMFS_IMAGE_BUNDLE = "1"
 KERNEL_INITRAMFS ?= '${@base_conditional("INITRAMFS_IMAGE_BUNDLE", "1", "1", "", d)}'
 
 KERNEL_MODULE_AUTOLOAD += "${MACHINE_FEATURES}"
-S = "${WORKDIR}/kernel"
 
 # Set a variable in .configure
 # $1 - Configure variable to be set

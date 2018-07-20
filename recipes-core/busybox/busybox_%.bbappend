@@ -2,8 +2,8 @@ SRC_URI += "\
 	    file://fragment.cfg \
 	    "
 
-SRC_URI_append_ipq = "\
-		      file://001-simple_script.patch;patchdir=../ \
+SRC_URI_remove_ipq = "\
+		      file://010-networking-fix-uninitialized-memory-when-displaying-.patch \
 		     "
 
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"

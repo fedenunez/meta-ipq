@@ -6,7 +6,7 @@ require recipes-kernel/linux/linux-ipq-fit.inc
 LINUX_VERSION ?= "4.4"
 LINUX_DESCRIPTION = "QCA IPQ Linux 4.4"
 
-SRC_URI = "file://kernel \
+SRC_URI = "file://../kernel \
 	   file://ipq40xx-defconfig \
 	   "
 S = "${WORKDIR}/kernel"

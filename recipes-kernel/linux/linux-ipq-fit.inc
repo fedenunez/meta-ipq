@@ -82,15 +82,15 @@ mk_multi_fit_image() {
 }
 
 find_device_tree() {
-       echo "$(basename $(find ${B}/arch/${KARCH}/boot/dts -name $1*.dts) 2>/dev/null)"
+       echo "$(basename $(find ${B}/arch/${KARCH}/boot/dts -name $1*.dtb) 2>/dev/null)"
 }
 
-do_compile_append() {
+generate_its() {
 
 	for d in ${KERNEL_DEVICETREE}; do
 		if [ ! -e "$d" ]; then
 			dts=$(find_device_tree "${d%.dtb}")
-			mk_fit_images "${dts%.dts}" ${KERNEL_LOADADDR}
+			mk_fit_images "${dts%.dtb}" ${KERNEL_LOADADDR}
 		fi
 	done
 
@@ -99,8 +99,8 @@ do_compile_append() {
 	for d in ${KERNEL_DEVICETREE}; do
 		if [ ! -e "$d" ]; then
 			dts=$(find_device_tree "${d%.dtb}")
-			board_name=$(basename $dts .dts | sed -e 's/^\([^\(.*?-?\)]*-\)//g')
-			generate_FDT "${dts%.dts}" $board_name
+			board_name=$(basename $dts .dtb | sed -e 's/^\([^\(.*?-?\)]*-\)//g')
+			generate_FDT "${dts%.dtb}" $board_name
 		fi
 	done
 
@@ -114,7 +114,7 @@ EOF
 	for d in ${KERNEL_DEVICETREE}; do
 		if [ ! -e "$d" ]; then
 			dts=$(find_device_tree "${d%.dtb}")
-			board_name=$(basename $dts .dts | sed -e 's/^\([^\(.*?-?\)]*-\)//g')
+			board_name=$(basename $dts .dtb | sed -e 's/^\([^\(.*?-?\)]*-\)//g')
 			generate_CONFIG $board_name
 		fi
 	done
@@ -133,11 +133,12 @@ install_fit_images() {
 
 do_deploy_append() {
 
+	generate_its
 	mkdir -p ${DEPLOYDIR}/dtbs
 	for d in ${KERNEL_DEVICETREE}; do
 		if [ ! -e "$d" ]; then
 			dts=$(find_device_tree "${d%.dtb}")
-			install_fit_images "${dts%.dts}"
+			install_fit_images "${dts%.dtb}"
 			install ${B}/arch/${KARCH}/boot/dts/${d} ${DEPLOYDIR}/dtbs/
 		fi
 	done

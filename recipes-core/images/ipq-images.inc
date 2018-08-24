@@ -24,7 +24,7 @@ create_ubinize_config() {
 
    echo \[rootfs\] >> "${UBINIZE_CFG}"
    echo mode=ubi >> "${UBINIZE_CFG}"
-   echo image="${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}${IMAGE_NAME_SUFFIX}.squashfs-xz" >> "${UBINIZE_CFG}"
+   echo image="${IMGDEPLOYDIR}/${IMAGE_NAME}${IMAGE_NAME_SUFFIX}.squashfs-xz" >> "${UBINIZE_CFG}"
    echo vol_id=1 >> "${UBINIZE_CFG}"
    echo vol_type=dynamic >> "${UBINIZE_CFG}"
    echo vol_name=ubi_rootfs >> "${UBINIZE_CFG}"

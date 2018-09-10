@@ -1,6 +1,7 @@
 
 FILESEXTRAPATHS_append := "${THISDIR}/files:"
 SRC_URI += "file://95-gpio-buttons.rules \
+	    file://001-remove_shared_mount_229.patch \
 	    "
 
 do_install_append() {

@@ -13,5 +13,5 @@ SRC_URI = "file://kernel \
 S = "${WORKDIR}/kernel"
 SRC_URI += "file://fit"
 
-COMPATIBLE_MACHINE = "(ipq806x|ipq40xx)"
+COMPATIBLE_MACHINE = "(ipq806x|ipq40xx|ipq807x)"
 KERNEL_IMAGETYPE ?= "Image"

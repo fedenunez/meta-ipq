@@ -16,7 +16,7 @@ KERNEL_MODULE_AUTOLOAD += "xhci-hcd"
 module_autoload_xhci-hcd = "xhci-hcd"
 
 # net/netfilter kernel loadable modules
-KERNEL_MODULE_AUTOLOAD += "ip_tables iptable_filter iptable_mangle iptable_nat iptable_raw xt_nat"
+KERNEL_MODULE_AUTOLOAD += "ip_tables iptable_filter iptable_mangle iptable_nat iptable_raw xt_nat nf_log_ipv4"
 
 KERNEL_MODULE_AUTOLOAD += "nf_conntrack"
 module_autoload_nf_conntrack += "nf_conntrack nf_conntrack_tftp nf_conntrack_amanda nf_conntrack_broadcast \
@@ -43,7 +43,7 @@ module_autoload_nf_nat_redirect += "nf_nat_redirect nf_nat_ipv4 nf_nat_snmp_basi
 KERNEL_MODULE_AUTOLOAD += "nf_conntrack_ipv6"
 module_autoload_nf_conntrack_ipv6 += "nf_conntrack_ipv6 nf_defrag_ipv6"
 
-KERNEL_MODULE_AUTOLOAD += "ip6_tables ip6table_filter ip6table_mangle ip6table_raw ip6t_REJECT"
+KERNEL_MODULE_AUTOLOAD += "ip6_tables ip6table_filter ip6table_mangle ip6table_raw ip6t_REJECT nf_log_ipv6"
 
 # ppp kernel loadable modules
 KERNEL_MODULE_AUTOLOAD += "pppoe"

@@ -1,5 +1,6 @@
 SRC_URI += "\
 	    file://fragment.cfg \
+	    file://001-simple_script.patch;patchdir=../ \
 	    "
 
 SRC_URI_remove_ipq = "\

@@ -10,8 +10,9 @@ LINUX_DESCRIPTION = "QCA IPQ Linux 3.14"
 KBRANCH ?= "coconut_20140924"
 SRCREV_msm ?= "93c371a98d6efdcddc8a879c9972dcacc24b008f"
 SRC_URI += "git://source.codeaurora.org/quic/qsdk/oss/kernel/linux-msm;protocol=https;branch=${KBRANCH};name=msm"
-SRC_URI += "file://ipq40xx-defconfig \
-       "
+SRC_URI = "file://defconfig \
+	   file://ipq40xx-default \
+	   "
 
 S = "${WORKDIR}/git"
 B = "${S}"

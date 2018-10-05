@@ -8,7 +8,8 @@ LINUX_DESCRIPTION = "QCA IPQ Linux 4.4"
 
 FILESPATH =+ "${TOPDIR}/../:"
 SRC_URI = "file://kernel \
-	   file://ipq40xx-defconfig \
+	   file://defconfig \
+	   file://ipq40xx-default \
 	   "
 S = "${WORKDIR}/kernel"
 SRC_URI += "file://fit"

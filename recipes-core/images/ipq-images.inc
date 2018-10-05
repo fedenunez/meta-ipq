@@ -4,9 +4,10 @@
 
 IMAGE_TYPEDEP_ubi        = "squashfs squashfs-xz"
 ITB_IMAGE_NAME_ipq40xx   = "fit-qcom-ipq40xx-ap.dkxx.itb"
+ITB_IMAGE_NAME_ipq807x   = "fit-qcom-ipq807x-ap.hkxx.itb"
 UBINIZE_CFG              = "${DEPLOY_DIR_IMAGE}/ubinize-${MACHINE}.cfg"
 
-IMAGE_PREPROCESS_COMMAND_ipq40xx   += "create_ipq_ubi_img;"
+IMAGE_PREPROCESS_COMMAND += "create_ipq_ubi_img;"
 SOC_TYPE="${@bb.data.getVar('MACHINE', d, 1).split('-')[0]}"
 IMAGE_NAME_SUFFIX ??= ".rootfs"
 

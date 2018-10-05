@@ -10,13 +10,15 @@ LIC_FILES_CHKSUM = "file://Licenses/gpl-2.0.txt;md5=b234ee4d69f5fce4486a80fdaf4a
 
 LOCALVERSION ?= "+yocto"
 PACKAGE_ARCH = "${MACHINE_ARCH}"
-COMPATIBLE_MACHINE = "ipq40xx"
+COMPATIBLE_MACHINE = "(ipq40xx|ipq807x)"
 DEPENDS +="u-boot-mkimage-native"
 
 SRC_URI = "file://u-boot-2016"
 S = "${WORKDIR}/u-boot-2016"
 
-UBOOT_MACHINE = "ipq40xx_defconfig"
+UBOOT_MACHINE_ipq40xx = "ipq40xx_defconfig"
+UBOOT_MACHINE_ipq807x = "ipq807x_defconfig"
+
 EXTRA_OEMAKE = 'CROSS_COMPILE=${TARGET_PREFIX} CC="${TARGET_PREFIX}gcc ${TOOLCHAIN_OPTIONS}" STRIP=true V=1'
 EXTRA_OEMAKE += 'TARGETCC="${CC} ${BUILD_CFLAGS} ${BUILD_LDFLAGS}"'
 

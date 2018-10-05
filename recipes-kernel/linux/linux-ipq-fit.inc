@@ -3,7 +3,7 @@ LICENSE = "GPLv2"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=d7810fab7487fb0aad327b76f1be7cd7"
 
-COMPATIBLE_MACHINE = "(ipq806x|ipq40xx)"
+COMPATIBLE_MACHINE = "(ipq806x|ipq40xx|ipq807x)"
 
 KMACHINE = "${MACHINE}"
 
@@ -12,6 +12,10 @@ INSANE_SKIP_kernel-dev = "debug-files"
 PARALLEL_MAKE = ""
 KARCH ?= "arm"
 DEPENDS += "u-boot-mkimage-native"
+
+FIT_IMAGE_NAME_ipq40xx = "qcom-ipq40xx-ap.dkxx.itb"
+FIT_IMAGE_NAME_ipq807x = "qcom-ipq807x-ap.hkxx.itb"
+SOC_TYPE = "${@bb.data.getVar('MACHINE', d, 1).split('-')[0]}"
 
 mk_fit_images() {
 	name=$1
@@ -122,7 +126,7 @@ EOF
 	};
 };
 EOF
-	mk_multi_fit_image qcom-ipq40xx-ap.dkxx ${KERNEL_LOADADDR}
+	mk_multi_fit_image $(basename ${FIT_IMAGE_NAME_${SOC_TYPE}} .itb) ${KERNEL_LOADADDR}
 }
 
 install_fit_images() {
@@ -142,7 +146,7 @@ do_deploy_append() {
 			install ${B}/arch/${KARCH}/boot/dts/${d} ${DEPLOYDIR}/dtbs/
 		fi
 	done
-	install_fit_images qcom-ipq40xx-ap.dkxx
+	install_fit_images $(basename ${FIT_IMAGE_NAME_${SOC_TYPE}} .itb)
 	install ${B}/vmlinux ${DEPLOYDIR}/${MACHINE}-vmlinux.elf
 	install ${B}/arch/${KARCH}/boot/Image ${DEPLOYDIR}/dtbs/
 }

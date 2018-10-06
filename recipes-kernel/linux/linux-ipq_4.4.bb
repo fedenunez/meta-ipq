@@ -11,9 +11,10 @@ SRC_URI = "file://kernel \
 	   file://defconfig \
 	   file://ipq40xx-default \
            file://ipq807x-default \
+	   file://ipq807x_64-default \
 	   "
 S = "${WORKDIR}/kernel"
 SRC_URI += "file://fit"
 
-COMPATIBLE_MACHINE = "(ipq806x|ipq40xx|ipq807x)"
+COMPATIBLE_MACHINE = "(ipq806x|ipq40xx|ipq807x|ipq807x_64)"
 KERNEL_IMAGETYPE ?= "Image"

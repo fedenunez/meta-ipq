@@ -5,6 +5,7 @@
 IMAGE_TYPEDEP_ubi        = "squashfs squashfs-xz"
 ITB_IMAGE_NAME_ipq40xx   = "fit-qcom-ipq40xx-ap.dkxx.itb"
 ITB_IMAGE_NAME_ipq807x   = "fit-qcom-ipq807x-ap.hkxx.itb"
+ITB_IMAGE_NAME_ipq807x_64   = "fit-qcom-ipq807x-ap.hkxx.itb"
 UBINIZE_CFG              = "${DEPLOY_DIR_IMAGE}/ubinize-${MACHINE}.cfg"
 
 IMAGE_PREPROCESS_COMMAND += "create_ipq_ubi_img;"

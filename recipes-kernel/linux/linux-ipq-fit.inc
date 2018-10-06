@@ -3,7 +3,7 @@ LICENSE = "GPLv2"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=d7810fab7487fb0aad327b76f1be7cd7"
 
-COMPATIBLE_MACHINE = "(ipq806x|ipq40xx|ipq807x)"
+COMPATIBLE_MACHINE = "(ipq806x|ipq40xx|ipq807x|ipq807x_64)"
 
 KMACHINE = "${MACHINE}"
 
@@ -15,13 +15,14 @@ DEPENDS += "u-boot-mkimage-native"
 
 FIT_IMAGE_NAME_ipq40xx = "qcom-ipq40xx-ap.dkxx.itb"
 FIT_IMAGE_NAME_ipq807x = "qcom-ipq807x-ap.hkxx.itb"
+FIT_IMAGE_NAME_ipq807x_64 = "qcom-ipq807x-ap.hkxx.itb"
 SOC_TYPE = "${@bb.data.getVar('MACHINE', d, 1).split('-')[0]}"
 
 mk_fit_images() {
 	name=$1
 	addr=$2
 
-	oe_runmake ${name}.dtb
+	oe_runmake ${DTB_PATH}/${name}.dtb
 	echo "pwd = `pwd`"
 	cd ../fit
 	oe_runmake "ARCH=${KARCH}" \
@@ -29,7 +30,7 @@ mk_fit_images() {
 			"LINUX_VERSION=${LINUX_VERSION}" \
 			"ADDRESS=${addr}" \
 			'KERNEL_IMAGE=${B}/arch/${KARCH}/boot/Image' \
-			"DTB=${B}/arch/${KARCH}/boot/dts/${name}.dtb" \
+			"DTB=${B}/arch/${KARCH}/boot/dts/${DTB_PATH}/${name}.dtb" \
 			"DTB_NAME=${name}"
 	mv linux.fit fit-${name}.itb
 	mv fdt.fit fdt.fit-${name}
@@ -43,7 +44,7 @@ generate_FDT() {
 	cat << EOF >> ${B}/../fit/multi.its
 		fdt@${board_name} {
 			description = "${name} Tree blob";
-			data = /incbin/("${B}/arch/${KARCH}/boot/dts/${name}.dtb");
+			data = /incbin/("${B}/arch/${KARCH}/boot/dts/${DTB_PATH}/${name}.dtb");
 			type = "flat_dt";
 			arch = "arm";
 			compression = "none";
@@ -86,7 +87,7 @@ mk_multi_fit_image() {
 }
 
 find_device_tree() {
-       echo "$(basename $(find ${B}/arch/${KARCH}/boot/dts -name $1*.dtb) 2>/dev/null)"
+       echo "$(basename $(find ${B}/arch/${KARCH}/boot/dts/${DTB_PATH} -name $1*.dtb) 2>/dev/null)"
 }
 
 generate_its() {
@@ -143,7 +144,7 @@ do_deploy_append() {
 		if [ ! -e "$d" ]; then
 			dts=$(find_device_tree "${d%.dtb}")
 			install_fit_images "${dts%.dtb}"
-			install ${B}/arch/${KARCH}/boot/dts/${d} ${DEPLOYDIR}/dtbs/
+			install ${B}/arch/${KARCH}/boot/dts/${DTB_PATH}/${d} ${DEPLOYDIR}/dtbs/
 		fi
 	done
 	install_fit_images $(basename ${FIT_IMAGE_NAME_${SOC_TYPE}} .itb)

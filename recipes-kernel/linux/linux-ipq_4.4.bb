@@ -10,6 +10,7 @@ FILESPATH =+ "${TOPDIR}/../:"
 SRC_URI = "file://kernel \
 	   file://defconfig \
 	   file://ipq40xx-default \
+           file://ipq807x-default \
 	   "
 S = "${WORKDIR}/kernel"
 SRC_URI += "file://fit"

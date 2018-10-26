@@ -18,6 +18,10 @@ NSS_PKGS = " \
 	    shortcut-fe \
 	    "
 
+QCA_NSS_FW = "qca-nss-fw"
+
+QCA_NSS_CLIENTS = "qca-nss-clients"
+
 RFS_PKGS = "qca-rfs"
 
 QCA_EDMA = "qca-edma"

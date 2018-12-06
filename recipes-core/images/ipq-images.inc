@@ -42,13 +42,6 @@ create_ubinize_config() {
 
 IMAGE_CMD_ubi() {
 
-   ubinize ${UBINIZE_ARGS} -o ${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}${IMAGE_NAME_SUFFIX}.ubi ${UBINIZE_CFG}
+   ubinize ${UBINIZE_ARGS} -o ${IMGDEPLOYDIR}/${IMAGE_NAME}${IMAGE_NAME_SUFFIX}.ubi ${UBINIZE_CFG}
 
-# Create own symlinks for ubi image in deploy dir
-   cd ${DEPLOY_DIR_IMAGE}
-	if [ -e ${IMAGE_NAME}${IMAGE_NAME_SUFFIX}.ubi ] && [ ! -e ${IMAGE_LINK_NAME}.ubi]; then
-		ln -sf ${IMAGE_NAME}${IMAGE_NAME_SUFFIX}.ubifs \
-		${IMAGE_LINK_NAME}.ubi
-	fi
-   cd -
 }

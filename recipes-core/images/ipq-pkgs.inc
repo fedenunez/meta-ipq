@@ -12,10 +12,10 @@ IPQ_BASE_PKGS = "sysstat strace e2fsprogs kexec-tools u-boot-fw-utils mtd initov
 NETWORK_PKGS = "ethtool iproute2 iproute2-tc iptables iputils dhcp-server wireless-tools mcproxy qca-mcs-lkm qca-mcs-app"
 
 NSS_PKGS = " \
+	    qca-nss-dp \
 	    qca-nss-drv \
-	    qca-nss-gmac \
-	    qca-edma \
-	    shortcut-fe \
+	    qca-nss-fw \
+	    qca-nss-clients \
 	    "
 
 QCA_NSS_FW = "qca-nss-fw"
